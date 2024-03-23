@@ -26,6 +26,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install poetry
           poetry install
+          python -m pytest -vv
 
-      - name: Execute Tests
-        run: python -m pytest -vv
+      # - name: Execute Tests
+      #   run: python -m pytest -vv
