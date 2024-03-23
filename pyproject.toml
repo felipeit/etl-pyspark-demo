@@ -4,7 +4,10 @@ version = "0.1.0"
 description = ""
 authors = ["Felipe Silva <felipe.it99@gmail.com>"]
 readme = "README.md"
-packages = [{include = "etl_pyspark_demo"}]
+packages = [
+    {include = "src"},
+    {include = "tests"},
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -12,9 +15,16 @@ pyspark = "^3.5.1"
 pandas = "^2.2.1"
 pyarrow = "^15.0.2"
 grpcio-status = "^1.62.1"
+pytest = "^8.1.1"
+pytest-asyncio = "^0.23.6"
+sqlalchemy = "^2.0.29"
 
 [tool.poetry.group.dev.dependencies]
 google-api-python-client = "^2.122.0"
+
+[tool.pytest.ini_options]
+python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
+asyncio_mode = "auto"
 
 [build-system]
 requires = ["poetry-core"]

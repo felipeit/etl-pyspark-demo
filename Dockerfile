@@ -28,7 +28,7 @@ SHELL ["/bin/bash", "-o", "errexit", "-o", "nounset", "-o", "pipefail", "-c"]
 RUN install_packages ca-certificates curl libbz2-1.0 libcom-err2 libcrypt1 libffi8 libgcc-s1 libgssapi-krb5-2 libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 liblzma5 libncursesw6 libnsl2 libreadline8 libsqlite3-0 libssl3 libstdc++6 libtinfo6 libtirpc3 procps zlib1g
 RUN mkdir -p /tmp/bitnami/pkg/cache/ ; cd /tmp/bitnami/pkg/cache/ ; \
     COMPONENTS=( \
-      "python-3.11.8-3-linux-${OS_ARCH}-debian-12" \
+      "python-3.10.12-linux-${OS_ARCH}-debian-12" \
       "java-17.0.10-13-2-linux-${OS_ARCH}-debian-12" \
       "spark-3.5.1-0-linux-${OS_ARCH}-debian-12" \
     ) ; \
