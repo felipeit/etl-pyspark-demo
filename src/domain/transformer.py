@@ -1,13 +1,19 @@
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List
+from pyspark.sql.dataframe import DataFrame
+
+from src.infra.repository.csv_file_repository import inMemoryCSVRepository
 
 
 class Transformer(ABC):
     @abstractmethod
-    def transform(self, data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def transform(self, data: DataFrame) -> inMemoryCSVRepository:
         pass
 
 class JSONTransformer(Transformer):
-    def transform(self, data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        # Lógica de transformação de dados JSON
-        pass
+    def transform(self, dataframe: DataFrame) -> inMemoryCSVRepository:
+        try:
+            data = dataframe.toJSON().collect()
+            repo = inMemoryCSVRepository(title="csv-test-random", data=data)
+        except Exception as err:
+            pass
+        return repo
