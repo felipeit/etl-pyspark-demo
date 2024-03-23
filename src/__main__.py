@@ -10,5 +10,5 @@ input = Input(
     loader=DatabaseLoader()
 )
 
-etl_processor = ETLProcessorCSV(file="teste.csv")
+etl_processor = ETLProcessorCSV(filename="teste.csv")
 etl_processor.process(input)

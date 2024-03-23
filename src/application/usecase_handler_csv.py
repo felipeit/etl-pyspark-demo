@@ -2,7 +2,7 @@ from src.application.base_handler import ETL, Input, Output
 
 
 class ETLProcessorCSV(ETL):
-    def __init__(self, filename) -> None:
+    def __init__(self, filename: str) -> None:
         self.__filename = filename
 
     def process(self, input: Input) -> Output:
