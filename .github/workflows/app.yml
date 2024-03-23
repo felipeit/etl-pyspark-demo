@@ -1,17 +1,10 @@
 name: Automate Python Tests
 
-on:
-  push:
-    branches:
-      - master 
-  pull_request:
-    branches:
-      - master  
+on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -24,9 +17,9 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install poetry
+          pip install poetry
           poetry install
-          python -m pytest -vv
 
-      # - name: Execute Tests
-      #   run: python -m pytest -vv
+      - name: Execute Tests
+        uses: pavelzw/pytest-action@v2
+        run: pytest -vv
