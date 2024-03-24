@@ -22,4 +22,10 @@ jobs:
 
       - name: Execute Tests
         uses: pavelzw/pytest-action@v2
+        with:
+          verbose: true
+          emoji: true
+          job-summary: true
+          click-to-expand: true
+          report-title: 'Test Report'
 
