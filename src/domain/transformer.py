@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from pyspark.sql.dataframe import DataFrame
 
-from src.infra.repository.csv_file_repository import inMemoryCSVRepository
+from src.infra.repository.csv_file_repository import CSVData, inMemoryCSVRepository
 
 
 class Transformer(ABC):
@@ -11,9 +11,7 @@ class Transformer(ABC):
 
 class JSONTransformer(Transformer):
     def transform(self, dataframe: DataFrame) -> inMemoryCSVRepository:
-        try:
-            data = dataframe.toJSON().collect()
-            repo = inMemoryCSVRepository(title="csv-test-random", data=data)
-        except Exception as err:
-            pass
+        data = dataframe.toJSON().collect()
+        dto = CSVData(title="csv-test-random", data=data)
+        repo = inMemoryCSVRepository(dto)
         return repo
