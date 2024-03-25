@@ -25,6 +25,7 @@ google-api-python-client = "^2.122.0"
 [tool.pytest.ini_options]
 python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
 asyncio_mode = "auto"
+addopts = "-p no:warnings"
 
 [build-system]
 requires = ["poetry-core"]
