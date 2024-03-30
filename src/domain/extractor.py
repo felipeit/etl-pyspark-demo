@@ -11,8 +11,9 @@ class Extractor(ABC):
 
 
 class CSVExtractor(Extractor):
-    def __init__(self, spark: SparkSingleton = SparkSingleton()) -> None:
+    def __init__(self, spark: SparkSingleton = SparkSingleton(), header: bool = True) -> None:
         self.__spark = spark.get_spark_session()
+        self.__header = header
 
     def extract(self, filename) -> DataFrame:
-        return self.__spark.read.csv(filename, header=True)
+        return self.__spark.read.csv(filename, header=self.__header)
