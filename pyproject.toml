@@ -18,6 +18,7 @@ grpcio-status = "^1.62.1"
 pytest = "^8.1.1"
 pytest-asyncio = "^0.23.6"
 sqlalchemy = "^2.0.29"
+pytest-cov = "^5.0.0"
 
 [tool.poetry.group.dev.dependencies]
 google-api-python-client = "^2.122.0"
