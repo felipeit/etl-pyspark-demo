@@ -1,12 +1,26 @@
+import pytest
+from unittest.mock import Mock
 from src.domain.loader import DatabaseLoader, Loader
-import pyspark.testing
+
 from pyspark.testing.utils import assertDataFrameEqual
+from tests.conftest import MockDbSQLAlchemy, MockRepository
 
 async def test_verify_if_instance_from_loader() -> None:
+    # Arrange
     output = DatabaseLoader()
+    # Act & Assert
     assert isinstance(output, Loader)
 
-async def test_method_process_of_loader() -> None:
-    # df1 = spark.createDataFrame(data=[("1", 1000), ("2", 3000)], schema=["id", "amount"])
-    # df2 = spark.createDataFrame(data=[("1", 1000), ("2", 3000)], schema=["id", "amount"])
-    pass
+@pytest.mark.skip
+async def test_method_process_of_loader_called_on_save(database_loader) -> None:
+    # Arrange
+    mock_db = Mock(MockDbSQLAlchemy())
+    mock_db.save = Mock(return_value=...)
+    mock_repo = Mock(MockRepository())
+    database_loader.db = mock_db
+
+    # Act
+    database_loader.load(mock_repo)
+
+    # Assert
+    assert mock_db.save.assert_called_once()
