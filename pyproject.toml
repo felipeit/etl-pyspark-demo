@@ -19,6 +19,9 @@ pytest = "^8.1.1"
 pytest-asyncio = "^0.23.6"
 sqlalchemy = "^2.0.29"
 pytest-cov = "^5.0.0"
+python-environ = "^0.4.54"
+jupyterlab = "^4.2.0"
+dataenforce = "^0.1.2"
 
 [tool.poetry.group.dev.dependencies]
 google-api-python-client = "^2.122.0"
