@@ -1,15 +1,6 @@
-
-from dataclasses import dataclass
-from typing import Any
+from src.domain.ports.loaders import Loader
 
 
-@dataclass
-class CSVData:
-    title: str
-    data: Any
-
-
-class inMemoryCSVRepository:
-    def __init__(self, data: CSVData) -> None:
-        self.__title = data.title
-        self.__file = data.data
+class CrytoRepository(Loader):
+    def save(self) -> None:
+        ...
