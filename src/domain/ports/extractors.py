@@ -1,14 +1,16 @@
 from abc import ABC, abstractmethod
+from typing import Any, Optional
 
 from src.infra.data.ports.engine import Engine
 
 
 class Extract(ABC):
-    def __init__(self, engine: Engine = Engine()) -> None:
+    def __init__(self, engine: Optional[Engine] = None) -> None:
+        """Engine may be provided by adapter; default is None for lazy/DI creation."""
         self.engine = engine
     
     @abstractmethod
-    def read(self, file_path:str , header:bool = True, sep:str=';') -> None:...
+    def read(self, file_path: str, header: bool = True, sep: str = ';') -> Any:...
 
     @abstractmethod
-    def run(self) -> None:...
+    def run(self, *args, **kwargs) -> Any:...
