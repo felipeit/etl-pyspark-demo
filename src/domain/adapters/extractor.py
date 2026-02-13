@@ -39,7 +39,12 @@ class CSVExtractor(Extract):
 
                 @property
                 def columns(self):
-                    return list(self._df.columns)
+                    cols = list(self._df.columns)
+                    # when pandas read with header=None it uses integer column names;
+                    # mimic Spark's `_c{index}` naming in that case
+                    if all(isinstance(c, int) for c in cols):
+                        return [f"_c{i}" for i in range(len(cols))]
+                    return cols
 
                 def dropna(self):
                     return PandasDFAdapter(self._df.dropna())
