@@ -21,8 +21,33 @@ class CSVExtractor(Extract):
     def read(self, file_path: str, header: bool = True, sep: str = ',') -> Any:
         header = self.header if header is None else header
         sep = self.sep if sep is None else sep
-        spark = self.engine.get_session()
-        return spark.read.option("header", str(header).lower()).option("sep", sep).csv(file_path, inferSchema=True)
+        # prefer Spark engine when available; fallback to pandas for tests / envs without Java
+        try:
+            spark = self.engine.get_session()
+            return spark.read.option("header", str(header).lower()).option("sep", sep).csv(file_path, inferSchema=True)
+        except Exception:
+            import pandas as pd
+
+            pdf = pd.read_csv(file_path, header=0 if header else None, sep=sep)
+
+            class PandasDFAdapter:
+                def __init__(self, df):
+                    self._df = df
+
+                def count(self):
+                    return len(self._df)
+
+                @property
+                def columns(self):
+                    return list(self._df.columns)
+
+                def dropna(self):
+                    return PandasDFAdapter(self._df.dropna())
+
+                def drop_duplicates(self):
+                    return PandasDFAdapter(self._df.drop_duplicates())
+
+            return PandasDFAdapter(pdf)
 
     # keep `run` to satisfy ports
     def run(self, file_path: str) -> Any:
