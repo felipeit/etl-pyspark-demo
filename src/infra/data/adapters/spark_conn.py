@@ -60,14 +60,23 @@ class SparkAdapter(Engine):
                     return PandasDFAdapter(pdf)
 
             class ReadStub:
-                def option(self, *_args, **_kwargs):
+                def __init__(self):
+                    self._opts = {}
+
+                def option(self, key, value):
+                    # options come as strings (e.g. "true"/"false")
+                    self._opts[key] = value
                     return self
 
                 def csv(self, file_path, inferSchema=True):
-                    return ReadOptionsStub(file_path, header=True, sep=',').csv(file_path, inferSchema=inferSchema)
+                    header_val = self._opts.get("header", "true")
+                    sep_val = self._opts.get("sep", ",")
+                    header_bool = str(header_val).lower() in ["true", "1", "yes"]
+                    return ReadOptionsStub(file_path, header_bool, sep_val).csv(file_path, inferSchema=inferSchema)
 
             class SparkSessionStub:
-                read = ReadStub()
+                def __init__(self):
+                    self.read = ReadStub()
 
             return SparkSessionStub()
 
