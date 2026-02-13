@@ -2,7 +2,6 @@ import pytest
 from unittest.mock import Mock
 from src.domain.loader import DatabaseLoader, Loader
 
-from pyspark.testing.utils import assertDataFrameEqual
 from tests.conftest import MockDbSQLAlchemy, MockRepository
 
 async def test_verify_if_instance_from_loader() -> None:
