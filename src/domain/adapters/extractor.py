@@ -18,7 +18,7 @@ class CSVExtractor(Extract):
         self.header = header
         self.sep = sep
 
-    def read(self, file_path: str, header: bool = True, sep: str = ',') -> Any:
+    def read(self, file_path: str, header: Optional[bool] = None, sep: str = ',') -> Any:
         header = self.header if header is None else header
         sep = self.sep if sep is None else sep
         # prefer Spark engine when available; fallback to pandas for tests / envs without Java
