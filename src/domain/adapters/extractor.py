@@ -1,5 +1,4 @@
 from typing import Any, Optional
-from dataenforce import Dataset
 from src.domain.ports.extractors import Extract
 from src.infra.data.ports.engine import Engine
 
